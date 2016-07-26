@@ -8,7 +8,7 @@
   "main": "component-list.html",
   "license": "MIT",
   "homepage": "https://github.com/Pancake-CMS/component-list",
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
