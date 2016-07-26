@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="import" href="../polymer/polymer.html" />
+        <link rel="import" href="./component-list.html" />
+    </head>
+
+    <body>
+        <template is="dom-bind" id="Demo">
+            <component-list components="[[data]]"></component-list>
+        </template>
+
+        <script>
+            Demo.data = [
+                            {
+                                name: 'polymer',
+                                version: '1.6.0',
+                                repo: 'polymer',
+                                user: 'Polymer'
+                            },
+                            {
+                                name: 'github-readme',
+                                version: '0.1.0',
+                                repo: 'github-readme',
+                                user: 'Pancake-CMS'
+                            }
+                        ];
+        </script>
+    </body>
+</html>

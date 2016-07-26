@@ -1,0 +1,74 @@
+<link rel="import" href="../component-info/component-info.html">
+<link rel="import" href="../paper-item/paper-item.html" >
+<link rel="import" href="../paper-listbox/paper-listbox.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="component-list">
+    <template>
+        <style>
+            :host {
+                height: 500px;
+                display: block;
+                @apply(--layout-horizontal);
+            }
+            input[type=radio] {
+                display: none;
+            }
+            paper-listbox {
+                @apply(--layout-flex-2);
+            }
+
+            .expand{
+                height: 500px;
+                overflow-y: scroll;
+                @apply(--layout-flex-8);
+            }
+
+            component-info {
+                height: 500px;
+                overflow-y: scroll;
+            }
+        </style>
+
+        <paper-listbox selected="{{selectedComponent}}">
+            <template is="dom-repeat" items="{{components}}">
+                <paper-item>[[item.name]]</paper-item>
+            </template>
+        </paper-listbox>
+        <div class="expand">
+            <component-info
+                user$="[[arrayItem(components.*, selectedComponent, 'user')]]"
+                repo$="[[arrayItem(components.*, selectedComponent, 'repo')]]"></component-info>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'component-list',
+
+            properties: {
+                selectedComponent: {
+                    type: Number,
+                    value: 0,
+                    notify: true
+                },
+                components: {
+                    type: Array,
+                    reflectToAttribute: false,
+                    notify: true
+                }
+            },
+
+            ready: function() {
+                console.log('iam ready');
+            },
+
+            // first argument is the change record for the array change,
+            // change.base is the array specified in the binding
+            arrayItem: function(change, index, path) {
+                // this.get(path, root) returns a value for a path
+                // relative to a root object.
+                return this.get(path, change.base[index]);
+            }
+        });
+    </script>
+</dom-module>
