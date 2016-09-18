@@ -14,8 +14,10 @@
                 @apply(--layout-horizontal);
             }
 
-            input[type=radio] {
-                display: none;
+            paper-item {
+                --paper-item: {
+                    padding: 0;
+                }
             }
 
             paper-listbox {
@@ -77,6 +79,12 @@
                     reflectToAttribute: true,
                     notify: true,
                     value: false
+                }
+            },
+
+            ready: function() {
+                if(!this.components) {
+                    console.error('component-list : No components added to attribute. Please refer the documentation.');
                 }
             },
 
