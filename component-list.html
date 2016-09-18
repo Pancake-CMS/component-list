@@ -1,42 +1,59 @@
-<link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../component-info/component-info.html">
-<link rel="import" href="../paper-item/paper-item.html" >
-<link rel="import" href="../paper-listbox/paper-listbox.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="./bower_components/polymer/polymer.html" />
+<link rel="import" href="./bower_components/component-info/component-info.html">
+<link rel="import" href="./bower_components/component-item/component-item.html">
+<link rel="import" href="./bower_components/paper-item/paper-item.html" >
+<link rel="import" href="./bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="./bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="component-list">
     <template>
         <style>
             :host {
-                height: 500px;
+                height: var(--component-list--height, 500px);
                 display: block;
                 @apply(--layout-horizontal);
             }
+
             input[type=radio] {
                 display: none;
             }
+
             paper-listbox {
-                @apply(--layout-flex-2);
+                @apply(--layout-flex);
             }
 
             .expand{
-                height: 500px;
                 overflow-y: scroll;
                 @apply(--layout-flex-8);
                 padding: 20px;
             }
+            .withComponentInfo {
+                @apply(--layout-flex-2);
+            }
         </style>
 
-        <paper-listbox selected="{{selectedComponent}}">
+        <paper-listbox
+            selected="{{selectedComponent}}"
+            class$="[[_componentInfoDivClass(showcomponentinfo)]]">
             <template is="dom-repeat" items="{{components}}">
-                <paper-item>[[item.name]]</paper-item>
+                <paper-item on-iron-selected="something()">
+                    <component-item
+                        name$="[[item.name]]"
+                        user$="[[item.user]]"
+                        repo$="[[item.repo]]"
+                        version="[[item.version]]">
+                    </component-item>
+                </paper-item>
             </template>
         </paper-listbox>
-        <div class="expand">
-            <component-info
-                user$="[[arrayItem(components.*, selectedComponent, 'user')]]"
-                repo$="[[arrayItem(components.*, selectedComponent, 'repo')]]"></component-info>
-        </div>
+        <template is="dom-if" if="[[showcomponentinfo]]">
+            <div class="expand">
+                <component-info
+                    user$="[[arrayItem(components.*, selectedComponent, 'user')]]"
+                    repo$="[[arrayItem(components.*, selectedComponent, 'repo')]]">
+                </component-info>
+            </div>
+        </template>
     </template>
     <script>
         Polymer({
@@ -48,15 +65,19 @@
                     value: 0,
                     notify: true
                 },
+
                 components: {
                     type: Array,
                     reflectToAttribute: false,
                     notify: true
-                }
-            },
+                },
 
-            ready: function() {
-                console.log('iam ready');
+                showcomponentinfo: {
+                    type: Boolean,
+                    reflectToAttribute: true,
+                    notify: true,
+                    value: false
+                }
             },
 
             // first argument is the change record for the array change,
@@ -65,6 +86,15 @@
                 // this.get(path, root) returns a value for a path
                 // relative to a root object.
                 return this.get(path, change.base[index]);
+            },
+
+            /*
+             * computes whether a section needs to be divided into two or not
+             * @param showcomponentinfo The value of showcomponentinfo
+             * @returns String classname of the divider class
+             */
+            _componentInfoDivClass: function(showcomponentinfo) {
+                return showcomponentinfo ? 'withComponentInfo' : '';
             }
         });
     </script>

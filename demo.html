@@ -5,12 +5,30 @@
     </head>
 
     <body>
-        <template is="dom-bind" id="Demo">
+        <template is="dom-bind" id="Demo1">
+            <component-list components="[[data]]" showcomponentinfo="true"></component-list>
+        </template>
+
+        <template is="dom-bind" id="Demo2">
             <component-list components="[[data]]"></component-list>
         </template>
 
         <script>
-            Demo.data = [
+            Demo1.data = [
+                            {
+                                name: 'polymer',
+                                version: '1.6.0',
+                                repo: 'polymer',
+                                user: 'Polymer'
+                            },
+                            {
+                                name: 'github-readme',
+                                version: '0.1.0',
+                                repo: 'github-readme',
+                                user: 'Pancake-CMS'
+                            }
+                        ];
+            Demo2.data = [
                             {
                                 name: 'polymer',
                                 version: '1.6.0',
