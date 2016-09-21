@@ -70,7 +70,7 @@
 
                 components: {
                     type: Array,
-                    reflectToAttribute: false,
+                    reflectToAttribute: true,
                     notify: true
                 },
 
@@ -82,19 +82,24 @@
                 }
             },
 
-            ready: function() {
-                if(!this.components) {
-                    console.warn('component-list : No components added to attribute. Please refer the documentation.');
-                }
-                this.attachListeners();
+            attached: function() {
+                this.async(() => {
+                    if(!this.components) {
+                        console.warn('component-list : No components added to attribute. Please refer the documentation.');
+                    }
+                    this.handleDOMChanged();
+                });
+
             },
 
-            componentsChanged: function() {
-                this.attachListeners();
+            handleDOMChanged: function() {
+                this.$$('paper-listbox').addEventListener('dom-change', () => {
+                   this.attachListeners();
+                });
             },
 
             attachListeners: function() {
-                var draggableEl = this.$$('paper-listbox').querySelectorAll('paper-item');
+                var draggableEl = this.$$('paper-listbox').queryAllEffectiveChildren('paper-item');
                 for(i = 0; i < draggableEl.length; i++) {
                     draggableEl[i].addEventListener('dragstart', (e)=>{
                         e.dataTransfer.setData('text', e.srcElement.querySelector('component-item').getAttribute('name'));
