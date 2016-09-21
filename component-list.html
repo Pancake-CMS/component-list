@@ -38,7 +38,7 @@
             selected="{{selectedComponent}}"
             class$="[[_componentInfoDivClass(showcomponentinfo)]]">
             <template is="dom-repeat" items="{{components}}">
-                <paper-item on-iron-selected="something()">
+                <paper-item on-iron-selected="something()" draggable="true">
                     <component-item
                         name$="[[item.name]]"
                         user$="[[item.user]]"
@@ -84,7 +84,21 @@
 
             ready: function() {
                 if(!this.components) {
-                    console.error('component-list : No components added to attribute. Please refer the documentation.');
+                    console.warn('component-list : No components added to attribute. Please refer the documentation.');
+                }
+                this.attachListeners();
+            },
+
+            componentsChanged: function() {
+                this.attachListeners();
+            },
+
+            attachListeners: function() {
+                var draggableEl = this.$$('paper-listbox').querySelectorAll('paper-item');
+                for(i = 0; i < draggableEl.length; i++) {
+                    draggableEl[i].addEventListener('dragstart', (e)=>{
+                        e.dataTransfer.setData('text', e.srcElement.querySelector('component-item').getAttribute('name'));
+                    });
                 }
             },
 
