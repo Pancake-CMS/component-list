@@ -43,7 +43,8 @@
                         name$="[[item.name]]"
                         user$="[[item.user]]"
                         repo$="[[item.repo]]"
-                        version="[[item.version]]">
+                        version$="[[item.version]]"
+                        data$="[[item]]">
                     </component-item>
                 </paper-item>
             </template>
@@ -94,7 +95,7 @@
 
             handleDOMChanged: function() {
                 this.$$('paper-listbox').addEventListener('dom-change', () => {
-                   this.attachListeners();
+                    this.attachListeners();
                 });
             },
 
@@ -102,7 +103,8 @@
                 var draggableEl = this.$$('paper-listbox').queryAllEffectiveChildren('paper-item');
                 for(i = 0; i < draggableEl.length; i++) {
                     draggableEl[i].addEventListener('dragstart', (e)=>{
-                        e.dataTransfer.setData('text', e.srcElement.querySelector('component-item').getAttribute('name'));
+                        var data = JSON.stringify(e.srcElement.querySelector('component-item').getAttribute('data'));
+                        e.dataTransfer.setData('text', data);
                     });
                 }
             },
