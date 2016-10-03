@@ -14,24 +14,87 @@ bower install --save pancake-cms-component-list
 
 As said earlier, this element uses a `component object`. The example of a `component object` is as follows.
 
-```javascript
-[
-    {
-        name: 'polymer',
-        version: '1.6.0',
-        repo: 'polymer',
-        user: 'Polymer'
-    },
-    {
-        name: 'github-readme',
-        version: '0.1.0',
-        repo: 'github-readme',
-        user: 'Pancake-CMS'
-    }
-]
+```json
+[ {
+  "name" : "demo-text-el",
+  "properties" : [ {
+    "name" : "componentProperties",
+    "value" : [ {
+      "description" : "The alignment of the text",
+      "name" : "align",
+      "options" : [ "left", "center", "right" ],
+      "type" : "options",
+      "value" : "right"
+    } ]
+  }, {
+    "name" : "display",
+    "value" : [ {
+      "description" : "The start column location of this component",
+      "name" : "gridColumnStart",
+      "type" : "text",
+      "value" : 1
+    }, {
+      "description" : "The end column location of this component",
+      "name" : "gridColumnEnd",
+      "type" : "text",
+      "value" : 1
+    }, {
+      "description" : "The start row location of this component",
+      "name" : "gridRowStart",
+      "type" : "text",
+      "value" : 1
+    }, {
+      "description" : "The end row location of this component",
+      "name" : "gridRowEnd",
+      "type" : "text",
+      "value" : 1
+    } ]
+  } ],
+  "repo" : "demo-text-el",
+  "user" : "Pancake-CMS",
+  "version" : "0.0.0"
+}, {
+  "name" : "demo-image-el",
+  "properties" : [ {
+    "name" : "componentProperties",
+    "value" : [ {
+      "description" : "The image src",
+      "name" : "src",
+      "type" : "string",
+      "value" : "http://prateekjadhwani.github.io/images/logo.png"
+    } ]
+  }, {
+    "name" : "display",
+    "value" : [ {
+      "description" : "The start column location of this component",
+      "name" : "gridColumnStart",
+      "type" : "text",
+      "value" : 1
+    }, {
+      "description" : "The end column location of this component",
+      "name" : "gridColumnEnd",
+      "type" : "text",
+      "value" : 1
+    }, {
+      "description" : "The start row location of this component",
+      "name" : "gridRowStart",
+      "type" : "text",
+      "value" : 1
+    }, {
+      "description" : "The end row location of this component",
+      "name" : "gridRowEnd",
+      "type" : "text",
+      "value" : 1
+    } ]
+  } ],
+  "repo" : "demo-image-el",
+  "user" : "Pancake-CMS",
+  "version" : "0.0.0"
+} ]
 ```
 
 Each array object contains the ___name___ of the component along with the ___version___ number and its ___Username___ and ___Repository Name___ on Github.
+It also contains a __property__ object which contains information about css grid information and the attributes which needs to be passed in when the component is rendered.
 
 ## Usage
 
