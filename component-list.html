@@ -55,8 +55,7 @@
         <template is="dom-if" if="[[showcomponentinfo]]">
             <div class="expand">
                 <component-info
-                    user$="[[arrayItem(components.*, selectedComponent, 'user')]]"
-                    repo$="[[arrayItem(components.*, selectedComponent, 'repo')]]">
+                    homepage$="[[arrayItem(components.*, selectedComponent, 'homepage')]]">
                 </component-info>
             </div>
         </template>
