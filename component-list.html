@@ -45,8 +45,7 @@
                 <paper-item on-iron-selected="something()" draggable="true">
                     <component-item
                         name$="[[item.name]]"
-                        user$="[[item.user]]"
-                        repo$="[[item.repo]]"
+                        homepage$="[[item.homepage]]"
                         version$="[[item.version]]"
                         data$="[[item]]">
                     </component-item>
@@ -75,7 +74,7 @@
 
                 components: {
                     type: Array,
-                    reflectToAttribute: true,
+                    reflectToAttribute: false,
                     notify: true
                 },
 
